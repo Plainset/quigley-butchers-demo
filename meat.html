@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en-GB" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Meat | Steve Quigley &amp; Sons, Traditional Family Butchers</title>
+<meta name="description" content="Fresh beef, lamb, pork and poultry, homemade sausages and burgers, and seasonal game at Steve Quigley &amp; Sons, Lillington, Leamington Spa. Today's cuts, chalked up fresh in-store.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<style>
+  /* ---- Page-specific: Our Meat ---- */
+
+  /* Page header */
+  .page-header {
+    position: relative;
+    padding-block: var(--space-6) var(--space-5);
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(217, 162, 39, 0.14), transparent 55%),
+      var(--color-charcoal);
+    z-index: -1;
+  }
+  .page-header .eyebrow { color: var(--color-mustard); }
+  .page-header h1, .page-header .lead { color: var(--color-cream); }
+  .page-header .lead { color: rgba(246, 240, 228, 0.85); }
+
+  /* Chalkboard gallery: real photography of the shop's own price boards,
+     shown as honest in-store texture rather than transcribed data (prices
+     change and handwriting can be misread — the photos speak for themselves). */
+  .chalkboard-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+  .chalkboard-item {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-card);
+    background: var(--color-charcoal);
+  }
+  .chalkboard-item img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform var(--dur-med) var(--ease-out);
+  }
+  .chalkboard-item:hover img { transform: scale(1.06); }
+  .chalkboard-item figcaption {
+    padding: var(--space-2);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-text-soft);
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-line);
+  }
+  .chalkboard-item figcaption strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-charcoal);
+    margin-bottom: 0.2em;
+  }
+  @media (max-width: 1199px) {
+    .chalkboard-gallery { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 639px) {
+    .chalkboard-gallery { grid-template-columns: 1fr; }
+  }
+
+  /* Honest pricing note */
+  .price-note {
+    margin-top: var(--space-3);
+  }
+
+  /* Range cards */
+  .range-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+  @media (max-width: 899px) {
+    .range-cards { grid-template-columns: 1fr; }
+  }
+  .range-card__icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--color-charcoal);
+    color: var(--color-mustard);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-2);
+  }
+  .range-card__icon svg { width: 22px; height: 22px; }
+  .range-card p { font-family: var(--font-sans); font-size: 0.95rem; color: var(--color-text-soft); margin-bottom: 0; }
+
+  /* Seasonal game callout */
+  .game-callout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3);
+    align-items: center;
+    background: var(--color-cream-deep);
+    border: 1px solid var(--color-line);
+    border-left: 4px solid var(--color-mustard-deep);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+  }
+  .game-callout__icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    color: var(--color-mustard-deep);
+  }
+  @media (max-width: 639px) {
+    .game-callout { grid-template-columns: 1fr; text-align: left; }
+    .game-callout__icon { display: none; }
+  }
+
+  /* CTA band */
+  .cta-band {
+    text-align: center;
+  }
+  .cta-band .btn-row {
+    display: flex;
+    gap: var(--space-2);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: var(--space-3);
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__fill"></div></div>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="nav__brand" href="index.html">
+      <span>
+        <span class="nav__brand-mark">Quigley<span> &amp; Sons</span></span>
+        <span class="nav__brand-sub">Traditional Family Butchers</span>
+      </span>
+    </a>
+    <button class="nav__toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+      <span class="nav__toggle-icon"></span>
+    </button>
+    <ul class="nav__menu" id="primary-nav" data-open="false">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="meat.html" aria-current="page">Our Meat</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a class="btn btn--mustard" href="tel:01926424022">Call 01926 424022</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Page header -->
+  <section class="page-header">
+    <div class="container">
+      <span class="eyebrow">Finest Quality Meat</span>
+      <h1 data-reveal="up" data-reveal-delay="1">Our Meat</h1>
+      <p class="lead" data-reveal="up" data-reveal-delay="2">
+        Fresh beef, lamb, pork and poultry, homemade sausages and burgers, and — in season — fresh
+        local game. Everything is cut and prepared in-store, the way a proper family butcher always
+        has. Below is a real look at today's cuts, chalked up fresh on our own price boards.
+      </p>
+    </div>
+  </section>
+
+  <!-- Chalkboard gallery: real photography -->
+  <section class="section" data-reveal="fade">
+    <div class="container">
+      <span class="eyebrow">Straight From The Shop Floor</span>
+      <h2>Today's Cuts, Chalked Up Fresh In-Store</h2>
+      <p class="lead">
+        These are genuine photos of our own handwritten price boards — beef, lamb, pork and chicken,
+        updated by hand as stock and prices change day to day. We've left them as real photography
+        rather than typing the numbers out, because a board like this changes more often than a
+        website does. Pop in or give us a call for exactly what's on offer today.
+      </p>
+
+      <div class="chalkboard-gallery">
+        <figure class="chalkboard-item" data-reveal="scale" data-reveal-delay="1">
+          <img src="assets/img/facebook/fb-price-board-beef.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing beef cuts and today's prices, including mince, fillet steak, silverside, topside, sirloin joint, brisket, rump and diced chuck">
+          <figcaption><strong>Beef</strong>Today's cuts, chalked up fresh in-store</figcaption>
+        </figure>
+        <figure class="chalkboard-item" data-reveal="scale" data-reveal-delay="2">
+          <img src="assets/img/facebook/fb-price-board-lamb.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing lamb cuts and today's prices, including leg, shoulder, loin, best end, chump steaks, breast, neck, diced, mince, liver, grill sticks and kidneys">
+          <figcaption><strong>Lamb</strong>Today's cuts, chalked up fresh in-store</figcaption>
+        </figure>
+        <figure class="chalkboard-item" data-reveal="scale" data-reveal-delay="3">
+          <img src="assets/img/facebook/fb-price-board-pork.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing pork cuts and today's prices, including leg, shoulder, chops, belly, hocks, mince, diced, ribs and liver">
+          <figcaption><strong>Pork</strong>Today's cuts, chalked up fresh in-store</figcaption>
+        </figure>
+        <figure class="chalkboard-item" data-reveal="scale" data-reveal-delay="4">
+          <img src="assets/img/facebook/fb-price-board-chicken.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing chicken and poultry cuts and today's prices, including whole chickens, breast, legs, drumsticks and supremes, plus homemade sausages, burgers, bacon and gammon">
+          <figcaption><strong>Chicken &amp; Poultry</strong>Today's cuts, chalked up fresh in-store</figcaption>
+        </figure>
+      </div>
+
+      <p class="lead price-note">
+        Prices change with the market, so we always chalk up the current figures on the boards
+        in-store rather than printing them here. Give us a call on
+        <a href="tel:01926424022" style="color: var(--color-red-dark); font-weight: 600;">01926 424022</a>
+        if you'd like to check a price before you visit.
+      </p>
+    </div>
+  </section>
+
+  <div class="container"><div class="ornament" aria-hidden="true">&#10022;</div></div>
+
+  <!-- The range -->
+  <section class="section section--tight section--cream-deep" data-reveal="up">
+    <div class="container">
+      <span class="eyebrow">What We Prepare</span>
+      <h2>The Full Range</h2>
+      <p class="lead">
+        Everything below is prepared on the premises. Ask in-store about specific cuts, quantities
+        for a freezer order, or anything not listed here — if it's a traditional butcher's item,
+        there's a good chance we can sort it for you.
+      </p>
+
+      <div class="range-cards" style="margin-top: var(--space-4);">
+        <div class="card" data-reveal="up" data-reveal-delay="1">
+          <div class="range-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16c0-5 3.5-9 8-9s8 4 8 9M6 16h12M8 20h8"/></svg>
+          </div>
+          <h3>Fresh Beef</h3>
+          <p>Joints, steaks, mince and diced beef, cut fresh to order — from a Sunday roast to a quick midweek stir-fry.</p>
+        </div>
+        <div class="card" data-reveal="up" data-reveal-delay="2">
+          <div class="range-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 0-5 2-5 5 0 2 1 3 1 5v6h8v-6c0-2 1-3 1-5 0-3-2-5-5-5z"/></svg>
+          </div>
+          <h3>Fresh Lamb</h3>
+          <p>Leg, shoulder, loin and chops alongside neck, liver and kidneys for those who like to cook the traditional way.</p>
+        </div>
+        <div class="card" data-reveal="up" data-reveal-delay="3">
+          <div class="range-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+          </div>
+          <h3>Fresh Pork</h3>
+          <p>Leg, shoulder and chops, plus belly, hock and ribs — good honest cuts for roasting, slow-cooking or the grill.</p>
+        </div>
+        <div class="card" data-reveal="up" data-reveal-delay="1">
+          <div class="range-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4 0 6 3 6 6 0 5-3 9-6 12-3-3-6-7-6-12 0-3 2-6 6-6z"/></svg>
+          </div>
+          <h3>Poultry</h3>
+          <p>Whole chickens and turkey, breasts, legs and drumsticks — everyday poultry, always fresh.</p>
+        </div>
+        <div class="card" data-reveal="up" data-reveal-delay="2">
+          <div class="range-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="7" rx="3.5"/><path d="M8 10V8a4 4 0 0 1 8 0v2"/></svg>
+          </div>
+          <h3>Homemade Sausages &amp; Burgers</h3>
+          <p>Made right here on the premises — not bought in — alongside plain and smoked bacon, gammon and dry cure.</p>
+        </div>
+        <div class="card" data-reveal="up" data-reveal-delay="3">
+          <div class="range-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C9 6 5 9 5 14a7 7 0 0 0 14 0c0-5-4-8-7-12z"/></svg>
+          </div>
+          <h3>Seasonal Game</h3>
+          <p>Fresh local pheasant and other game in season — keep an eye on our window, or ask us what's currently in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="ornament" aria-hidden="true">&#10022;</div></div>
+
+  <!-- Seasonal game note -->
+  <section class="section section--tight" data-reveal="up">
+    <div class="container">
+      <div class="game-callout">
+        <svg class="game-callout__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M24 6c-6 8-12 14-12 22a12 12 0 0 0 24 0c0-8-6-14-12-22z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="24" cy="30" r="2.4" fill="currentColor"/>
+        </svg>
+        <div>
+          <h3 style="margin-bottom: 0.3em;">Fresh Local Pheasant, In Season</h3>
+          <p style="margin-bottom: 0;">
+            Alongside our everyday beef, lamb, pork and poultry, we stock fresh local pheasant and
+            other game when it's in season — a genuine seasonal extra rather than something we
+            carry year-round. Give us a call to check what's currently available.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--deep cta-band" data-reveal="up">
+    <div class="container">
+      <span class="eyebrow eyebrow--on-dark" style="justify-content: center;">Get In Touch</span>
+      <h2>Ask Us What's Fresh Today</h2>
+      <p class="lead" style="margin-inline: auto; text-align: center;">
+        Our range and prices change with the seasons and the market. The best way to know exactly
+        what's in and what it costs today is to call ahead or drop by 128 Cubbington Road.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--mustard" href="tel:01926424022">Call 01926 424022</a>
+        <a class="btn btn--on-dark" href="contact.html">Find Us &amp; Opening Hours</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3>Steve Quigley &amp; Sons</h3>
+        <p>A traditional family butcher's shop in Lillington, Leamington Spa — fresh beef, lamb, pork, poultry, homemade sausages and burgers, and seasonal game.</p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <p>128 Cubbington Road<br>Lillington, Leamington Spa<br>CV32 7AH</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p><a href="tel:01926424022">01926 424022</a></p>
+        <p>No email — please call or visit in person.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="meat.html">Our Meat</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Steve Quigley &amp; Sons.</span>
+      <span>128 Cubbington Road, Lillington, Leamington Spa, CV32 7AH &middot; 01926 424022</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

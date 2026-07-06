@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steve Quigley &amp; Sons — Traditional Family Butchers, Lillington, Leamington Spa</title>
+<meta name="description" content="Steve Quigley &amp; Sons, 128 Cubbington Road, Lillington, Leamington Spa — a traditional family butcher's shop. Fresh beef, lamb, pork and poultry, homemade sausages and burgers, and seasonal game. Rated 5.0 from 72 Google reviews.">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<style>
+  /* ============================================================
+     Home page — hero on the real shopfront photo + supporting sections
+     Page-specific styles only; shared components live in main.css
+     ============================================================ */
+
+  /* ---- Hero ---- */
+  .hero {
+    position: relative;
+    min-height: clamp(520px, 92vh, 880px);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--color-charcoal);
+  }
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 32%;
+    transform: scale(1.06);
+    filter: saturate(1);
+    will-change: transform;
+  }
+  /* Scrim: charcoal wash, angled top -> transparent so the cream headline text
+     stays legible without a flat cheap overlay. Paired with text-shadow on the
+     headline/lead below for reliable legibility on top of a busy photo. */
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(190deg,
+      rgba(33, 30, 27, 0.62) 0%,
+      rgba(33, 30, 27, 0.48) 38%,
+      rgba(33, 30, 27, 0.28) 68%,
+      rgba(33, 30, 27, 0.66) 100%);
+    transition: opacity 1.2s var(--ease-out);
+  }
+  @keyframes hero-settle {
+    from { transform: scale(1.06); filter: saturate(0.92); }
+    to   { transform: scale(1); filter: saturate(1); }
+  }
+  .hero__image.is-active {
+    animation: hero-settle 5.5s var(--ease-out) forwards;
+  }
+  .hero__media.is-active .hero__scrim { opacity: 1; }
+  .hero__scrim { opacity: 1; }
+
+  /* Static / reduced-motion fallback: correct final composition, no motion */
+  .hero__image.is-static {
+    animation: none !important;
+    transform: scale(1) !important;
+    filter: none !important;
+  }
+  .hero__scrim.is-static { opacity: 0.78 !important; }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-block: var(--space-6) var(--space-5);
+    color: var(--color-cream);
+  }
+  .hero__eyebrow {
+    color: var(--color-mustard);
+    text-shadow: 0 1px 4px rgba(33, 30, 27, 0.7);
+  }
+  .hero__eyebrow::before { background: var(--color-mustard); }
+  .hero__rule {
+    width: 96px;
+    height: 2px;
+    background: var(--color-mustard);
+    margin: 0 0 var(--space-2);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.9s var(--ease-brass);
+    transition-delay: 0.15s;
+  }
+  .hero__rule.is-active { transform: scaleX(1); }
+  .hero__rule.is-static { transform: scaleX(1); transition: none; }
+
+  .hero h1 {
+    color: var(--color-white);
+    max-width: 18ch;
+    font-size: var(--fs-h1);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.55);
+  }
+  .hero__lead {
+    font-family: var(--font-sans);
+    font-size: var(--fs-lead);
+    color: var(--color-cream);
+    max-width: 48ch;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+  .hero__meta {
+    margin-top: var(--space-4);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: var(--color-mustard-pale);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  }
+  .hero__meta strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--color-white);
+    letter-spacing: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__image { transform: none; animation: none; }
+    .hero__scrim { opacity: 0.78; }
+    .hero__rule { transform: scaleX(1); transition: none; }
+  }
+
+  /* On narrow viewports this crop lands the real photo's own red "BUTCHERS"
+     signage lettering directly behind the eyebrow — measured at only ~3:1
+     against the real photo pixel there, below the 4.5:1 needed for text this
+     small (per the QA rule: scrim + text-shadow together is not automatically
+     enough — verified against the real photo, not just a screenshot). Give
+     the eyebrow a solid dark chip so it reads cleanly regardless of what's
+     behind it. !important guards against source-order drift since both
+     rules share identical specificity. */
+  @media (max-width: 639px) {
+    .hero .eyebrow {
+      background: rgba(33, 30, 27, 0.75) !important;
+      color: var(--color-white) !important;
+      padding: 0.3em 0.7em 0.3em 0 !important;
+      border-radius: 2px !important;
+    }
+    .hero .eyebrow::before { background: var(--color-mustard) !important; }
+  }
+
+  /* ---- Intro / tagline ---- */
+  .intro {
+    text-align: center;
+  }
+  .intro__lead {
+    margin-inline: auto;
+    font-size: var(--fs-lead);
+  }
+  .intro .ornament { margin-top: var(--space-3); }
+
+  /* ---- Trust strip ---- */
+  .trust {
+    background: var(--color-cream-deep);
+    border-block: 1px solid var(--color-line);
+  }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+  .trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-2);
+  }
+  .trust-item__icon {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--color-charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .trust-item__icon svg { width: 22px; height: 22px; }
+  .trust-item h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.25em;
+  }
+  .trust-item p {
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    color: var(--color-text-soft);
+    margin: 0;
+  }
+  @media (max-width: 899px) {
+    .trust-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Range preview grid (product categories) ---- */
+  .range-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+  }
+  .range-grid .gallery-item {
+    aspect-ratio: 4 / 5;
+  }
+  @media (max-width: 1199px) {
+    .range-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 639px) {
+    .range-grid { grid-template-columns: 1fr; }
+  }
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+  .section-head .lead { margin-bottom: 0; }
+
+  /* ---- Rating callout ---- */
+  .rating-callout {
+    background: var(--color-red);
+    color: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5) var(--space-4);
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-4);
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .rating-callout::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 88% 12%, rgba(217, 162, 39, 0.28), transparent 55%);
+    pointer-events: none;
+  }
+  .rating-callout h2 { color: var(--color-white); }
+  .rating-callout .lead { color: var(--color-cream); font-family: var(--font-sans); }
+  .rating-callout__stars {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    color: var(--color-mustard);
+    margin-bottom: var(--space-1);
+  }
+  .rating-callout__stars svg { width: 22px; height: 22px; }
+  .rating-callout__figure {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 4vw, 3.4rem);
+    color: var(--color-white);
+    line-height: 1;
+  }
+  .rating-callout__actions {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+  @media (max-width: 899px) {
+    .rating-callout { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Visit-us CTA band ---- */
+  .visit-band {
+    background: var(--color-charcoal);
+    color: var(--color-cream);
+  }
+  .visit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    align-items: start;
+  }
+  .visit-grid h3 { color: var(--color-white); }
+  .visit-card {
+    font-family: var(--font-sans);
+  }
+  .visit-card p { color: var(--color-cream); margin: 0; }
+  .visit-card a.visit-link {
+    display: inline-block;
+    margin-top: 0.5em;
+    color: var(--color-mustard);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .visit-card a.visit-link:hover { border-color: var(--color-mustard); }
+  .visit-band .ornament { margin-block: var(--space-4); }
+  .visit-band .ornament::before, .visit-band .ornament::after { background: rgba(246, 240, 228, 0.25); }
+  .visit-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+  @media (max-width: 899px) {
+    .visit-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__fill"></div></div>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="nav__brand" href="index.html">
+      <span>
+        <span class="nav__brand-mark">Quigley<span> &amp; Sons</span></span>
+        <span class="nav__brand-sub">Traditional Family Butchers</span>
+      </span>
+    </a>
+    <button class="nav__toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+      <span class="nav__toggle-icon"></span>
+    </button>
+    <ul class="nav__menu" id="primary-nav" data-open="false">
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="meat.html">Our Meat</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a class="btn btn--mustard" href="tel:01926424022">Call 01926 424022</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO: real shopfront photo ============ -->
+  <section class="hero">
+    <div class="hero__media" data-hero-patina>
+      <img
+        class="hero__image"
+        src="assets/img/facebook/fb-cover-shopfront-butchers-sign.jpg"
+        alt="The Steve Quigley &amp; Sons shopfront on Cubbington Road, Lillington — a cream fascia with Traditional Family Butchers and BUTCHERS painted in red lettering, a black-and-white striped awning, stone-clad frontage, and window displays of fresh meat"
+        width="1440" height="1440"
+        fetchpriority="high">
+      <div class="hero__scrim"></div>
+    </div>
+    <div class="container hero__content">
+      <p class="hero__eyebrow eyebrow">Lillington &middot; Leamington Spa</p>
+      <div class="hero__rule"></div>
+      <h1 data-reveal="up" data-reveal-delay="1">Traditional family butchers, done properly</h1>
+      <p class="hero__lead" data-reveal="up" data-reveal-delay="2">
+        Steve Quigley &amp; Sons is a genuine family butcher's shop on Cubbington Road — fresh beef,
+        lamb, pork and poultry, homemade sausages and burgers, and seasonal game, cut and prepared
+        the way a proper butcher always has.
+      </p>
+      <div class="hero__actions" data-reveal="up" data-reveal-delay="3">
+        <a class="btn btn--mustard" href="meat.html">See Our Meat</a>
+        <a class="btn btn--on-dark" href="contact.html">Find Us</a>
+      </div>
+      <div class="hero__meta" data-reveal="up" data-reveal-delay="3">
+        <span><strong>5.0 stars</strong>from 72 Google reviews</span>
+        <span><strong>900+</strong>followers on Facebook</span>
+        <span><strong>In-store &amp; local</strong>delivery available</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INTRO / TAGLINE ============ -->
+  <section class="section intro">
+    <div class="container" data-reveal="up">
+      <p class="eyebrow text-center">Finest quality meat</p>
+      <h2>Fresh Beef, Lamb, Pork &amp; Poultry — Every Day</h2>
+      <p class="lead intro__lead">
+        We're suppliers of the finest quality fresh beef, lamb, pork and poultry, along with our own
+        homemade sausages and burgers made on the premises. In season, we also stock fresh local
+        pheasant and other game — ask in-store for what's available this week.
+      </p>
+      <div class="ornament" aria-hidden="true">&#10022;</div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST / SERVICES STRIP ============ -->
+  <section class="trust section--tight">
+    <div class="container trust-grid">
+      <div class="trust-item" data-reveal="up" data-reveal-delay="1">
+        <span class="trust-item__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D9A227" stroke-width="1.6"><path d="M12 2l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1.5z"/></svg>
+        </span>
+        <div>
+          <h3>Rated 5.0 from 72 Reviews</h3>
+          <p>A genuine family butcher trusted by the local community in Lillington and across Leamington Spa.</p>
+        </div>
+      </div>
+      <div class="trust-item" data-reveal="up" data-reveal-delay="2">
+        <span class="trust-item__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D9A227" stroke-width="1.6"><path d="M3 10l9-6 9 6M5 9v10h14V9M9 19v-6h6v6"/></svg>
+        </span>
+        <div>
+          <h3>Homemade Sausages &amp; Burgers</h3>
+          <p>Made on the premises, not bought in — the same recipes that have kept customers coming back.</p>
+        </div>
+      </div>
+      <div class="trust-item" data-reveal="up" data-reveal-delay="3">
+        <span class="trust-item__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D9A227" stroke-width="1.6"><path d="M3 12h13M13 6l6 6-6 6"/></svg>
+        </span>
+        <div>
+          <h3>In-Store &amp; Local Delivery</h3>
+          <p>Pop in and choose your cuts in person, or ask about local delivery to your door.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RANGE PREVIEW GRID ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal="up">
+        <div>
+          <p class="eyebrow">What we sell</p>
+          <h2>The Range</h2>
+        </div>
+        <p class="lead">Fresh cuts and homemade favourites, prepared daily in-store.</p>
+      </div>
+
+      <div class="range-grid">
+        <a class="gallery-item" href="meat.html" data-reveal="scale" data-reveal-delay="1">
+          <img src="assets/img/facebook/fb-price-board-beef.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing beef cuts and prices in-store, including mince, fillet steak, silverside and braising steak">
+          <span class="gallery-item__caption">
+            <span class="title">Beef</span>
+            <span class="price">Fresh cuts, daily</span>
+          </span>
+        </a>
+        <a class="gallery-item" href="meat.html" data-reveal="scale" data-reveal-delay="2">
+          <img src="assets/img/facebook/fb-price-board-lamb.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing lamb cuts and prices in-store, including leg, shoulder, loin and best end">
+          <span class="gallery-item__caption">
+            <span class="title">Lamb</span>
+            <span class="price">Fresh cuts, daily</span>
+          </span>
+        </a>
+        <a class="gallery-item" href="meat.html" data-reveal="scale" data-reveal-delay="3">
+          <img src="assets/img/facebook/fb-price-board-pork.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing pork cuts and prices in-store, including leg, shoulder, chops and ribs">
+          <span class="gallery-item__caption">
+            <span class="title">Pork</span>
+            <span class="price">Fresh cuts, daily</span>
+          </span>
+        </a>
+        <a class="gallery-item" href="meat.html" data-reveal="scale" data-reveal-delay="4">
+          <img src="assets/img/facebook/fb-price-board-chicken.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing chicken and poultry cuts and prices in-store, including whole chickens, breast and drumsticks, plus homemade sausages and bacon">
+          <span class="gallery-item__caption">
+            <span class="title">Poultry</span>
+            <span class="price">Fresh cuts, daily</span>
+          </span>
+        </a>
+      </div>
+
+      <p class="text-center" style="margin-top: var(--space-4);" data-reveal="up">
+        <a class="btn btn--primary" href="meat.html">See Our Full Range</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ RATING CALLOUT ============ -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="rating-callout" data-reveal="up">
+        <div>
+          <div class="rating-callout__stars" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17l-6.1 3.5 1.5-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17l-6.1 3.5 1.5-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17l-6.1 3.5 1.5-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17l-6.1 3.5 1.5-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17l-6.1 3.5 1.5-6.8L2.2 9l6.9-.7z"/></svg>
+          </div>
+          <span class="rating-callout__figure">5.0</span>
+          <h2 style="margin-top: 0.3em;">72 Google Reviews, and Counting</h2>
+          <p class="lead">
+            Word of mouth is how a family butcher earns its regulars. Ours has built a perfect
+            5.0-star rating from 72 reviews on Google, plus over 900 followers on Facebook —
+            we'd rather let that speak for itself than tell you ourselves.
+          </p>
+        </div>
+        <div class="rating-callout__actions">
+          <a class="btn btn--mustard" href="contact.html">Visit The Shop</a>
+          <a class="btn btn--ghost btn--on-dark" href="tel:01926424022">Call 01926 424022</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VISIT US / CONTACT CTA BAND ============ -->
+  <section class="section section--deep visit-band">
+    <div class="container">
+      <div class="text-center" data-reveal="up">
+        <p class="eyebrow eyebrow--on-dark">Come and see us</p>
+        <h2>Visit The Shop</h2>
+      </div>
+      <div class="ornament" aria-hidden="true">&#10022;</div>
+      <div class="visit-grid">
+        <div class="visit-card" data-reveal="up" data-reveal-delay="1">
+          <h3>Address</h3>
+          <p>128 Cubbington Road<br>Lillington, Leamington Spa<br>CV32 7AH</p>
+          <a class="visit-link" href="contact.html">Get directions &rarr;</a>
+        </div>
+        <div class="visit-card" data-reveal="up" data-reveal-delay="2">
+          <h3>Telephone</h3>
+          <p>Call us to check what's in today, place an order, or ask about delivery.</p>
+          <a class="visit-link" href="tel:01926424022">01926 424022 &rarr;</a>
+        </div>
+        <div class="visit-card" data-reveal="up" data-reveal-delay="3">
+          <h3>Opening Hours</h3>
+          <p>Open early, six days a week — give us a call for today's hours.</p>
+          <a class="visit-link" href="contact.html">Full details &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3>Steve Quigley &amp; Sons</h3>
+        <p>A traditional family butcher's shop in Lillington, Leamington Spa — fresh beef, lamb, pork, poultry, homemade sausages and burgers, and seasonal game.</p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <p>128 Cubbington Road<br>Lillington, Leamington Spa<br>CV32 7AH</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p><a href="tel:01926424022">01926 424022</a></p>
+        <p>No email — please call or visit in person.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <p>
+          <a href="index.html">Home</a><br>
+          <a href="meat.html">Our Meat</a><br>
+          <a href="about.html">About</a><br>
+          <a href="contact.html">Contact</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Steve Quigley &amp; Sons. All rights reserved.</span>
+      <span>128 Cubbington Road, Lillington, Leamington Spa, CV32 7AH &middot; 01926 424022</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

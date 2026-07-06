@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Design tokens — Steve Quigley & Sons, Traditional Family Butchers
+   Palette: traditional British high-street butcher — cream awning, red
+   signage lettering, chalkboard authenticity. Drawn directly from the shop's
+   own real shopfront photo (cream fascia, "BUTCHERS" in red serif lettering,
+   black awning/door) and its own chalkboard price boards (mustard-yellow
+   chalk lettering) rather than a generic template palette.
+   ========================================================================== */
+
+:root {
+  /* ---- Colors: core ---- */
+  --color-cream: #F6F0E4;         /* page background — from the awning cream */
+  --color-cream-deep: #EDE3CD;    /* secondary panel background */
+  --color-red: #B32A2A;           /* primary — from the real "BUTCHERS" signage lettering */
+  --color-red-dark: #7E1E1E;      /* hover/active state, WCAG AA on cream */
+  --color-red-deep: #5C1616;      /* darkest red, for small text needing extra contrast */
+  --color-charcoal: #211E1B;      /* dark sections — from the awning/door black */
+  --color-charcoal-soft: #4A453F; /* secondary text */
+  --color-mustard: #D9A227;       /* accent — chalkboard yellow chalk lettering. Bright/golden, not brass. */
+  --color-mustard-deep: #8C6614;  /* darker mustard for small text on cream — WCAG AA */
+  --color-mustard-pale: #F1DFAE;  /* pale mustard tint for chips/backgrounds — not for text */
+  --color-white: #FFFFFF;
+  --color-line: #DED0AE;          /* hairline borders, warm-toned */
+
+  /* Semantic aliases */
+  --color-bg: var(--color-cream);
+  --color-surface: var(--color-white);
+  --color-text: var(--color-charcoal);
+  --color-text-soft: var(--color-charcoal-soft);
+  --color-primary: var(--color-red);
+  --color-accent: var(--color-mustard);
+  --color-accent-2: var(--color-red-dark);
+
+  /* ---- Typography ----
+     No CDN/webfont dependency (GitHub Pages, no build step): these are
+     system-font stacks chosen to read as confident butcher-shop signage
+     lettering even on the fallback alone — a slab/serif with real character
+     for headings, paired with a clean, legible sans for body copy. */
+  --font-display: Georgia, "Iowan Old Style", "Times New Roman", "Noto Serif", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  --fs-h1: clamp(2.4rem, 4.4vw + 1rem, 4.4rem);
+  --fs-h2: clamp(1.9rem, 2.6vw + 1rem, 2.9rem);
+  --fs-h3: clamp(1.3rem, 1.2vw + 1rem, 1.65rem);
+  --fs-lead: clamp(1.1rem, 0.7vw + 0.9rem, 1.3rem);
+  --fs-body: 1.05rem;
+  --fs-small: 0.875rem;
+  --fs-eyebrow: 0.8rem;
+
+  --lh-tight: 1.15;
+  --lh-body: 1.65;
+
+  /* ---- Spacing scale ---- */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.25rem;
+  --space-5: 3.5rem;
+  --space-6: 5.5rem;
+  --space-7: 8rem;
+
+  /* ---- Layout ---- */
+  --container-width: 1200px;
+  --container-pad: clamp(1.25rem, 4vw, 3rem);
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 22px;
+
+  /* ---- Shadows (warm-toned, not cool grey) ---- */
+  --shadow-card: 0 14px 32px -18px rgba(33, 30, 27, 0.35);
+  --shadow-card-hover: 0 22px 44px -16px rgba(33, 30, 27, 0.42);
+  --shadow-soft: 0 8px 20px -12px rgba(33, 30, 27, 0.25);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-brass: cubic-bezier(0.16, 0.84, 0.44, 1);
+  --dur-fast: 220ms;
+  --dur-med: 550ms;
+  --dur-slow: 1100ms;
+
+  /* Breakpoints (reference only, used in comments): 640 / 900 / 1200 */
+}

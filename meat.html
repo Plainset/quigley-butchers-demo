@@ -35,9 +35,11 @@
      change and handwriting can be misread — the photos speak for themselves). */
   .chalkboard-gallery {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3);
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
     margin-top: var(--space-4);
+    max-width: 860px;
+    margin-inline: auto;
   }
   .chalkboard-item {
     position: relative;
@@ -49,7 +51,8 @@
   }
   .chalkboard-item img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: auto;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     transition: transform var(--dur-med) var(--ease-out);
   }
@@ -68,9 +71,6 @@
     font-size: 1.05rem;
     color: var(--color-charcoal);
     margin-bottom: 0.2em;
-  }
-  @media (max-width: 639px) {
-    .chalkboard-gallery { grid-template-columns: 1fr; }
   }
 
   /* Honest pricing note */
@@ -192,19 +192,19 @@
 
       <div class="chalkboard-gallery">
         <figure class="chalkboard-item" data-reveal="scale" data-reveal-delay="1">
-          <img src="assets/img/facebook/fb-price-board-beef.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing beef cuts and today's prices, including mince, fillet steak, silverside, topside, sirloin joint, brisket, rump and diced chuck">
+          <img src="assets/img/facebook/fb-price-board-beef.jpg" width="960" height="720" loading="lazy" alt="Handwritten chalkboard listing beef cuts and today's prices, including mince, fillet steak, silverside, topside, sirloin joint, brisket, rump and diced chuck">
           <figcaption><strong>Beef</strong>Today's cuts, chalked up fresh in-store</figcaption>
         </figure>
         <figure class="chalkboard-item" data-reveal="scale" data-reveal-delay="2">
-          <img src="assets/img/facebook/fb-price-board-lamb.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing lamb cuts and today's prices, including leg, shoulder, loin, best end, chump steaks, breast, neck, diced, mince, liver, grill sticks and kidneys">
+          <img src="assets/img/facebook/fb-price-board-lamb.jpg" width="960" height="720" loading="lazy" alt="Handwritten chalkboard listing lamb cuts and today's prices, including leg, shoulder, loin, best end, chump steaks, breast, neck, diced, mince, liver, grill sticks and kidneys">
           <figcaption><strong>Lamb</strong>Today's cuts, chalked up fresh in-store</figcaption>
         </figure>
         <figure class="chalkboard-item" data-reveal="scale" data-reveal-delay="3">
-          <img src="assets/img/facebook/fb-price-board-pork.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing pork cuts and today's prices, including leg, shoulder, chops, belly, hocks, mince, diced, ribs and liver">
+          <img src="assets/img/facebook/fb-price-board-pork.jpg" width="960" height="720" loading="lazy" alt="Handwritten chalkboard listing pork cuts and today's prices, including leg, shoulder, chops, belly, hocks, mince, diced, ribs and liver">
           <figcaption><strong>Pork</strong>Today's cuts, chalked up fresh in-store</figcaption>
         </figure>
         <figure class="chalkboard-item" data-reveal="scale" data-reveal-delay="4">
-          <img src="assets/img/facebook/fb-price-board-chicken.jpg" width="414" height="414" loading="lazy" alt="Handwritten chalkboard listing chicken and poultry cuts and today's prices, including whole chickens, breast, legs, drumsticks and supremes, plus homemade sausages, burgers, bacon and gammon">
+          <img src="assets/img/facebook/fb-price-board-chicken.jpg" width="960" height="720" loading="lazy" alt="Handwritten chalkboard listing chicken and poultry cuts and today's prices, including whole chickens, breast, legs, drumsticks and supremes, plus homemade sausages, burgers, bacon and gammon">
           <figcaption><strong>Chicken &amp; Poultry</strong>Today's cuts, chalked up fresh in-store</figcaption>
         </figure>
       </div>

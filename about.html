@@ -15,104 +15,31 @@
      system). Only layout scaffolding for this page's sections lives here.
      ========================================================================== */
 
-  /* ---- Intro / small hero (photo-settle treatment, smaller scale than home) ---- */
-  .story-hero {
+  /* ---- Page header: clean charcoal gradient, no photo (matches meat.html's
+     .page-header treatment) — keeps the shopfront photo exclusive to the
+     home hero rather than repeating it as a banner on every page. ---- */
+  .page-header {
     position: relative;
+    padding-block: var(--space-6) var(--space-5);
     overflow: hidden;
-    min-height: clamp(320px, 46vw, 520px);
-    display: flex;
-    align-items: flex-end;
-    background: var(--color-charcoal);
   }
-  .story-hero__image {
+  .page-header::before {
+    content: "";
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-    transform: scale(1.05);
-    filter: saturate(0.96);
-    will-change: transform;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(217, 162, 39, 0.14), transparent 55%),
+      var(--color-charcoal);
+    z-index: -1;
   }
-  .story-hero__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(33, 30, 27, 0.55) 0%, rgba(33, 30, 27, 0.4) 50%, rgba(33, 30, 27, 0.88) 100%);
-    opacity: 0.72;
-  }
-  /* Photo-settle: same restrained "shop opens" language as the home hero,
-     scaled down for a secondary page. Gated by JS via [data-hero-patina]. */
-  .story-hero__image.is-active {
-    animation: story-hero-settle 5s var(--ease-out) forwards;
-  }
-  .story-hero.is-active .story-hero__overlay {
-    animation: story-hero-overlay-settle 5s var(--ease-out) forwards;
-  }
-  @keyframes story-hero-settle {
-    from { transform: scale(1.05); filter: saturate(0.96); }
-    to   { transform: scale(1); filter: saturate(1); }
-  }
-  @keyframes story-hero-overlay-settle {
-    from { opacity: 0.72; }
-    to   { opacity: 0.55; }
-  }
-  /* Static / reduced-motion fallback: resting state applied instantly, no animation */
-  .story-hero__image.is-static { transform: scale(1); filter: saturate(1); animation: none; }
-  .story-hero.is-static .story-hero__overlay,
-  .story-hero .story-hero__overlay.is-static { opacity: 0.55; animation: none; }
-  @media (prefers-reduced-motion: reduce) {
-    .story-hero__image { transform: scale(1); filter: saturate(1); animation: none !important; }
-    .story-hero__overlay { opacity: 0.55; animation: none !important; }
-  }
-  .story-hero__content {
-    position: relative;
-    z-index: 1;
-    padding-block: var(--space-5) var(--space-4);
-    color: var(--color-cream);
-    width: 100%;
-  }
-  .story-hero__content .eyebrow { color: var(--color-mustard); text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
-  .story-hero__content h1 { color: var(--color-white); text-shadow: 0 2px 16px rgba(0,0,0,0.5); }
-  .story-hero__rule {
+  .page-header .eyebrow { color: var(--color-mustard); }
+  .page-header h1, .page-header .lead { color: var(--color-cream); }
+  .page-header .lead { color: rgba(246, 240, 228, 0.85); }
+  .page-header__rule {
     height: 2px;
     width: 84px;
     background: var(--color-mustard);
     margin: var(--space-2) 0 var(--space-3);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--dur-slow) var(--ease-brass);
-    transition-delay: 400ms;
-  }
-  .story-hero.is-active .story-hero__rule,
-  .story-hero__rule.is-static { transform: scaleX(1); }
-  @media (prefers-reduced-motion: reduce) {
-    .story-hero__rule { transform: scaleX(1); transition: none; }
-  }
-  .story-hero__lead {
-    color: var(--color-cream);
-    max-width: 56ch;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.45);
-  }
-
-  /* On narrow viewports the shorter, taller-aspect crop lands the photo's own
-     bold "BUTCHERS" signage lettering directly behind the eyebrow/heading —
-     the desktop scrim strength is too weak there (per the QA rule: scrim +
-     text-shadow together, not scrim alone; verified against the real photo
-     pixel behind the eyebrow, which is the shop's own pale cream signage
-     background — text-shadow alone does not fix this per WCAG math).
-     !important guards this override regardless of any future source-order
-     changes above, since both rules share identical specificity. */
-  @media (max-width: 639px) {
-    .story-hero__overlay { background: linear-gradient(180deg, rgba(33, 30, 27, 0.86) 0%, rgba(33, 30, 27, 0.8) 45%, rgba(33, 30, 27, 0.94) 100%) !important; }
-    .story-hero .story-hero__overlay { opacity: 0.92 !important; animation: none !important; }
-    .story-hero__content .eyebrow {
-      background: rgba(33, 30, 27, 0.75) !important;
-      color: var(--color-white) !important;
-      padding: 0.3em 0.7em 0.3em 0 !important;
-      border-radius: 2px !important;
-    }
-    .story-hero__content .eyebrow::before { background: var(--color-mustard) !important; }
   }
 
   /* ---- Two-up narrative layout (text + supporting photo) ---- */
@@ -275,19 +202,13 @@
 
 <main id="main">
 
-  <!-- ============ INTRO / STORY HERO ============ -->
-  <section class="story-hero" data-hero-patina>
-    <img
-      class="story-hero__image"
-      src="assets/img/facebook/fb-cover-shopfront-butchers-sign.jpg"
-      alt="Close view of the Steve Quigley &amp; Sons shopfront signage reading Traditional Family Butchers, with the shop's own cow-head logo and Homemade Sausages &amp; Burgers lettering visible in the window"
-      width="1440" height="1440">
-    <div class="story-hero__overlay" aria-hidden="true"></div>
-    <div class="story-hero__content container">
-      <p class="eyebrow">Our Story</p>
-      <div class="story-hero__rule" aria-hidden="true"></div>
+  <!-- ============ PAGE HEADER ============ -->
+  <section class="page-header">
+    <div class="container">
+      <span class="eyebrow">Our Story</span>
+      <div class="page-header__rule" aria-hidden="true"></div>
       <h1 data-reveal="up" data-reveal-delay="1">A genuine family butcher, run the traditional way</h1>
-      <p class="story-hero__lead lead" data-reveal="up" data-reveal-delay="2">
+      <p class="lead" data-reveal="up" data-reveal-delay="2">
         Steve Quigley &amp; Sons is exactly what the sign says — a traditional family butcher's shop
         on Cubbington Road in Lillington, run by the Quigley family for the local community.
       </p>
@@ -309,18 +230,19 @@
             always has.
           </p>
           <p>
-            Our shopfront tells you most of what you need to know before you've even stepped inside:
+            Our sign tells you most of what you need to know before you've even stepped inside:
             "Traditional Family Butchers," "Finest Quality Meat," and suppliers of fresh beef, lamb,
             pork and poultry. It's a straightforward promise, and it's one we keep every day the shop
-            is open.
+            is open — right down to the prices, which we still chalk up by hand on the boards
+            in-store rather than print.
           </p>
         </div>
         <div class="story-split__media">
           <img
-            src="assets/img/facebook/fb-cover-shopfront-butchers-sign.jpg"
-            alt="The full Steve Quigley &amp; Sons shopfront on Cubbington Road, with red BUTCHERS signage lettering, a black-and-white awning, and window displays of fresh meat"
-            width="1440" height="1440" loading="lazy">
-          <span class="label-tag">128 Cubbington Road &middot; Lillington</span>
+            src="assets/img/facebook/fb-price-board-lamb.jpg"
+            alt="Handwritten chalkboard listing lamb cuts and prices in-store, including leg, shoulder, loin and best end"
+            width="414" height="414" loading="lazy">
+          <span class="label-tag">Still Chalked Up By Hand</span>
         </div>
       </div>
     </div>

@@ -11,104 +11,35 @@
 <style>
   /* ---- Page-specific: Contact / Find Us ---- */
 
-  /* Intro banner — reuses the shared "settle" photo treatment at a smaller,
-     secondary-page scale (per hero animation spec: same treatment, smaller). */
+  /* Page header: clean charcoal gradient, no photo (matches meat.html's
+     .page-header treatment) — keeps the shopfront photo exclusive to the
+     home hero rather than repeating it as a banner on every page. */
   .intro {
     position: relative;
+    padding-block: var(--space-6) var(--space-5);
     overflow: hidden;
-    min-height: clamp(260px, 42vw, 420px);
-    display: flex;
-    align-items: flex-end;
-    background: var(--color-charcoal);
   }
-  .intro__image {
+  .intro::before {
+    content: "";
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 34%;
-    transform: scale(1.06);
-    filter: saturate(1);
-    opacity: 0;
-  }
-  .intro__image.is-active {
-    animation: intro-settle 2.6s var(--ease-out) forwards;
-  }
-  .intro__image.is-static {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
-  @keyframes intro-settle {
-    from { opacity: 0.001; transform: scale(1.06); }
-    15%  { opacity: 1; }
-    to   { opacity: 1; transform: scale(1); }
-  }
-  .intro__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(33, 30, 27, 0.4) 0%, rgba(33, 30, 27, 0.72) 100%);
-  }
-  .intro__content {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    padding-block: var(--space-5) var(--space-4);
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(217, 162, 39, 0.14), transparent 55%),
+      var(--color-charcoal);
+    z-index: -1;
   }
   .intro .eyebrow { color: var(--color-mustard); }
-  .intro h1 { color: var(--color-white); text-shadow: 0 2px 16px rgba(0,0,0,0.5); }
+  .intro h1 { color: var(--color-cream); }
   .intro__lead {
-    color: var(--color-cream);
+    color: rgba(246, 240, 228, 0.85);
     font-family: var(--font-sans);
     max-width: 56ch;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.45);
   }
   .intro__rule {
     height: 2px;
     width: 120px;
     background: var(--color-mustard);
-    transform: scaleX(0);
-    transform-origin: left;
     margin-block: var(--space-2) var(--space-3);
-  }
-  /* Rule draws in just after the photo settle finishes (~900ms in). Gated by
-     the same .is-active/.is-static classes the [data-hero-patina] hook adds
-     to the image (see main.js); .intro__rule is a later sibling of the image
-     within the same section, so a general-sibling selector reaches it. */
-  .intro__image.is-active ~ .intro__content .intro__rule {
-    animation: rule-draw var(--dur-med) var(--ease-brass) forwards;
-    animation-delay: 2.4s;
-  }
-  .intro__image.is-static ~ .intro__content .intro__rule {
-    transform: scaleX(1);
-    animation: none;
-  }
-  @keyframes rule-draw {
-    to { transform: scaleX(1); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .intro__image { opacity: 1; transform: none; }
-    .intro__rule { transform: scaleX(1); }
-  }
-
-  /* On narrow viewports this crop lands the shopfront's own bold signage
-     lettering and a Union Jack graphic directly behind the eyebrow/rule —
-     the desktop scrim strength (0.4 at the top) is too weak there (per the
-     QA rule: scrim + text-shadow together, not scrim alone; verified against
-     the real photo, not just a screenshot). Darken the overlay and give the
-     eyebrow a solid dark chip so it reads cleanly regardless of what's in
-     the photo at that exact crop. !important guards against source-order
-     drift since both rules share identical specificity. */
-  @media (max-width: 639px) {
-    .intro__overlay { background: linear-gradient(180deg, rgba(33, 30, 27, 0.78) 0%, rgba(33, 30, 27, 0.86) 100%) !important; }
-    .intro .eyebrow {
-      background: rgba(33, 30, 27, 0.75) !important;
-      color: var(--color-white) !important;
-      padding: 0.3em 0.7em 0.3em 0 !important;
-      border-radius: 2px !important;
-    }
-    .intro .eyebrow::before { background: var(--color-mustard) !important; }
   }
 
   /* ---- Primary call block: phone as the hero action ---- */
@@ -296,14 +227,8 @@
 
 <main id="main">
 
-  <!-- Intro banner: real shopfront photo, "settle" treatment at secondary-page scale -->
+  <!-- Page header: clean gradient banner, no photo -->
   <section class="intro">
-    <img
-      class="intro__image"
-      data-hero-patina
-      src="assets/img/facebook/fb-cover-shopfront-butchers-sign.jpg"
-      alt="The Steve Quigley &amp; Sons shopfront on Cubbington Road, Lillington, showing the cream fascia, red BUTCHERS signage lettering and stone-clad frontage">
-    <div class="intro__overlay"></div>
     <div class="intro__content container">
       <p class="eyebrow" data-reveal="up" data-reveal-delay="1">Get In Touch</p>
       <div class="intro__rule" data-reveal="up" data-reveal-delay="1"></div>

@@ -35,7 +35,7 @@
      change and handwriting can be misread — the photos speak for themselves). */
   .chalkboard-gallery {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-3);
     margin-top: var(--space-4);
   }
@@ -68,9 +68,6 @@
     font-size: 1.05rem;
     color: var(--color-charcoal);
     margin-bottom: 0.2em;
-  }
-  @media (max-width: 1199px) {
-    .chalkboard-gallery { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 639px) {
     .chalkboard-gallery { grid-template-columns: 1fr; }
